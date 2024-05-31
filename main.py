@@ -3,13 +3,17 @@ this is the main runner for the application.
 This is a console application for now.
 """
 from to_do_list import ToDoList
+from login import login, logout
+from users import Database
+
 
 def run():
     """
     main runner function
     """
+    database = Database({})
     print("Hello! Welcome To Your Todo List")
-    todo = ToDoList([])
+    database, todo = login(database)
     while True:
         print("\n===== ToDo List Menu =====")
         print("1. Add a new task")
@@ -19,7 +23,7 @@ def run():
         print("5. Mark a task as complete/incomplete")
         print("6. Set the priority of a task")
         print("7. Sort tasks")
-        print("8. Exit")
+        print("8. Logout")
 
         choice = input("Enter your choice: ")
         if choice == '1':
@@ -36,8 +40,11 @@ def run():
             set_priority(todo)
         elif choice == '7':
             sort_todo_list(todo)
+        elif choice == '8':
+            logout(database)
         else:
             break
+        
 def add_task(todo: ToDoList):
     """
     this function is used to add a task to todo list
